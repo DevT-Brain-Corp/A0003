@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
+use Illuminate\Http\Response;
 class AdminMidleware
 {
     /**
@@ -17,6 +18,7 @@ class AdminMidleware
     {
 
         if ($request->user() && $request->user()->role !=1) {
+
             return new Response(view('404'));
         }
 

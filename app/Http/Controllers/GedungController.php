@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Building;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Auth;
-use App\Gedung;
 
 class GedungController extends Controller
 {
@@ -18,14 +18,14 @@ class GedungController extends Controller
     public function index()
     {
         //
-        $gedung = Gedung::all();
-        if (Auth::user()->hasAnyRole('owner')){
+        $gedung = Building::all();
+        if (Auth::user()->role == 2){
             return view('owner.indexgedung', ['gedung'=> $gedung]);
         }
-        else if (Auth::user()->hasAnyRole('admin')){
+        else if (Auth::user()->role == 1){
             return view('admin.indexgedung', ['gedung'=> $gedung]);
         }
-        else if (Auth::user()->hasAnyRole('masyarakat')){
+        else if (Auth::user()->role == 3){
             return view('masyarakat.indexsewa', ['gedung'=> $gedung]);
         }
 

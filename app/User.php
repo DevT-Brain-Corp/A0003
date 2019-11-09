@@ -2,7 +2,10 @@
 
 namespace App;
 
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * @property integer $id_user
@@ -21,7 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Building[] $buildings
  * @property Rental[] $rentals
  */
-class User extends Model
+class User extends Authenticatable
 {
     /**
      * The primary key for the model.

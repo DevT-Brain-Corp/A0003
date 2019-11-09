@@ -3,7 +3,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>SIPENTUR</span></a>
+              <a href="{{ route('home') }}" class="site_title"><i class="fa fa-paw"></i> <span>SIPENTUR</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -19,13 +19,24 @@
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <ul class="nav side-menu">
-                  @if (Auth::user()->hasAnyRole('admin'))
-                  <li>
-                      <a href="{{ url('admin.indexgedung')}}" class="nav-link">
-                          <i class="fa fa-table"></i>
-                          <span>Data Gedung</span>
-                      </a>
-                  </li> 
+                  @if (Auth::user()->role == '1')
+                  <li><a><i class="fa fa-edit"></i> Gedung <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li>
+                            <a href="{{ route('admin.indexbuilding')}}" class="nav-link">
+                                <i class="fa fa-table"></i>
+                                <span>Data Gedung</span>
+                            </a>
+                        </li> 
+                        <li>
+                            <a href="{{ route('admin.buildingverification')}}" class="nav-link">
+                                <i class="fa fa-table"></i>
+                                <span>Verifikasi Gedung</span>
+                            </a>
+                        </li> 
+                    </ul>
+                  </li>
+                  
                   
                   <li>
                       <a href="{{ route('admin.index')}}" class="nav-link">
@@ -35,7 +46,7 @@
                   </li> 
                   @endif
   
-                  @if (Auth::user()->hasAnyRole('owner'))
+                  @if (Auth::user()->role == 2)
                   <li>
                       <a href="{{ url('/profile')}}" class="nav-link">
                           <i class="fa fa-user"></i>
@@ -56,7 +67,7 @@
                   </li>
                   @endif
   
-                  @if (Auth::user()->hasAnyRole('masyarakat'))
+                  @if (Auth::user()->role == '3')
                   <li>
                       <a href="{{ route('profile.index')}}" class="nav-link">
                           <i class="fa fa-user"></i>
