@@ -13,20 +13,22 @@ class CreateGedungsTable extends Migration
      */
     public function up()
     {
-        Schema::create('gedungs', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('buildings', function (Blueprint $table) {
+            $table->bigIncrements('id_building');
             $table->unsignedBigInteger('id_owner');
-            $table->string('NamaGedung');
-            $table->string('AlamatGedung');
-            $table->integer('Biaya');
-            $table->integer('Kapasitas');
-            $table->string('Keterangan');
-            $table->string('File');
-            $table->string('Kriteria')->default('Sedang');
-            $table->boolean('Verifikasi')->default(false);
+            $table->string('name_building');
+            $table->string('address_building');
+            $table->bigInteger('cost');
+            $table->integer('capacity');
+            $table->string('description');
+            $table->string('files');
+            $table->string('criteria')->default('Sedang');
+            $table->boolean('submission')->default('1');
+            $table->boolean('verif')->default('0');
+            $table->boolean('edit')->default('0');
             $table->timestamps();
 
-            $table->foreign('id_owner')->references('id')->on('users')->ondelete('restrict');
+            $table->foreign('id_owner')->references('id_user')->on('users')->ondelete('restrict');
 
 
         });

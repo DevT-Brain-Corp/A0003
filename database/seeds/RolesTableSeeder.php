@@ -25,11 +25,8 @@ class RolesTableSeeder extends Seeder
         // $petani = new Role();
         // $petani->nama = 'petani';
         // $petani->save();
-
-        Role::truncate();
-
-        Role::create(['nama' => 'admin']);
-        Role::create(['nama' => 'owner']);
-        Role::create(['nama' => 'masyarakat']);
+        Role::create(['role_name' => 'admin']);
+        Role::create(['role_name' => 'owner']);
+        Role::create(['role_name' => 'masyarakat']);
     }
 }

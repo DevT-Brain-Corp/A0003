@@ -15,30 +15,32 @@ class UsersTableSeeder extends Seeder
     {
         // User::truncate();
 
-        $adminRole = Role::where('nama', 'admin')->first();
-        $ownerRole = Role::where('nama', 'owner')->first();
-        $masyarakatRole = Role::where('nama', 'masyarakat')->first();
-
         $admin = new User();
         $admin->name = 'Admin';
         $admin->email = 'admin@gmail.com';
         $admin->password = bcrypt('admin');
+        $admin->user_address = 'Jl Kenangan 12 Jember';
+        $admin->phone = '087709307745';
+        $admin->role = '1';
         $admin->save();
 
         $owner = new User();
         $owner->name = 'Owner';
         $owner->email = 'owner@gmail.com';
+        $owner->company_name = 'Owner Corp.';
+        $owner->user_address = 'Jl Kenangan mantan 13 Jember';
+        $owner->phone = '089876987954';
+        $owner->role = '2';
         $owner->password = bcrypt('owner');
         $owner->save();
 
         $masyarakat = new User();
         $masyarakat->name = 'Masyarakat';
         $masyarakat->email = 'masyarakat@gmail.com';
+        $masyarakat->user_address = 'Jl Kenangan 12 Jember';
+        $masyarakat->phone = '081235367890';
+        $masyarakat->role = '3';
         $masyarakat->password = bcrypt('masyarakat');
         $masyarakat->save();
-        
-        $admin->roles()->attach($adminRole);
-        $owner->roles()->attach($ownerRole);
-        $masyarakat->roles()->attach($masyarakatRole);
     }
 }

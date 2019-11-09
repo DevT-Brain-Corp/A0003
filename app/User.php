@@ -2,53 +2,67 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+/**
+ * @property integer $id_user
+ * @property integer $role
+ * @property string $name
+ * @property string $company_name
+ * @property string $user_address
+ * @property string $email
+ * @property string $phone
+ * @property string $email_verified_at
+ * @property string $password
+ * @property string $remember_token
+ * @property string $created_at
+ * @property string $updated_at
+ * @property Role $role
+ * @property Building[] $buildings
+ * @property Rental[] $rentals
+ */
+class User extends Model
 {
-    use Notifiable;
+    /**
+     * The primary key for the model.
+     * 
+     * @var string
+     */
+    protected $primaryKey = 'id_user';
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
+     * The "type" of the auto-incrementing ID.
+     * 
+     * @var string
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    protected $keyType = 'integer';
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    protected $fillable = ['role', 'name', 'company_name', 'user_address', 'email', 'phone', 'email_verified_at', 'password', 'remember_token', 'created_at', 'updated_at'];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-    public function roles()
+    public function role()
     {
-        return $this->belongsToMany('App\Role');
+        return $this->belongsTo('App\Role', 'role', 'id_role');
     }
 
-    public function hasAnyRoles($roles)
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function buildings()
     {
-        return null !== $this->roles()->whereIn('nama', $roles)->first();
+        return $this->hasMany('App\Building', 'id_owner', 'id_user');
     }
 
-    public function hasAnyRole($role)
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function rentals()
     {
-        return null !== $this->roles()->where('nama', $role)->first();
+        return $this->hasMany('App\Rental', 'loaner', 'id_user');
     }
 }
