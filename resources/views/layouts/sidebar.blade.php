@@ -19,7 +19,7 @@
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <ul class="nav side-menu">
-                  @if (Auth::user()->role == '1')
+                  @if (Auth::user()->id_role == '1')
                   <li><a><i class="fa fa-edit"></i> Gedung <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li>
@@ -46,28 +46,28 @@
                   </li> 
                   @endif
   
-                  @if (Auth::user()->role == 2)
+                  @if (Auth::user()->id_role == 2)
                   <li>
-                      <a href="{{ url('/profile')}}" class="nav-link">
+                      <a href="{{ route('owner.profile')}}" class="nav-link">
                           <i class="fa fa-user"></i>
                           <span>Profile</span>
                       </a>
                   </li>    
                   <li>
-                      <a href="{{ url('owner.indexgedung')}}" class="nav-link">
+                      <a href="{{ route('owner.indexgedung')}}" class="nav-link">
                           <i class="fa fa-table"></i>
                           <span>Data Gedung</span>
                       </a>
                   </li>
                   <li>
-                      <a href="{{ route('owner.index')}}" class="nav-link">
+                      <a href="{{ route('owner.penyewaan')}}" class="nav-link">
                           <i class="fa fa-edit"></i>
                           <span>Data Penyewaan</span>
                       </a>
                   </li>
                   @endif
   
-                  @if (Auth::user()->role == '3')
+                  @if (Auth::user()->id_role == '3')
                   <li>
                       <a href="{{ route('profile.index')}}" class="nav-link">
                           <i class="fa fa-user"></i>

@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property integer $id_building
+ * @property integer $id
  * @property integer $id_owner
  * @property string $name_building
  * @property string $address_building
@@ -25,13 +25,6 @@ use Illuminate\Database\Eloquent\Model;
 class Building extends Model
 {
     /**
-     * The primary key for the model.
-     * 
-     * @var string
-     */
-    protected $primaryKey = 'id_building';
-
-    /**
      * The "type" of the auto-incrementing ID.
      * 
      * @var string
@@ -44,10 +37,11 @@ class Building extends Model
     protected $fillable = ['id_owner', 'name_building', 'address_building', 'cost', 'capacity', 'description', 'files', 'criteria', 'submission', 'verif', 'edit', 'created_at', 'updated_at'];
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
-        return $this->belongsTo('App\User', 'id_owner', 'id_user');
+        return $this->belongsTo('App\User', 'id_owner');
     }
 
     /**
@@ -55,6 +49,6 @@ class Building extends Model
      */
     public function rentals()
     {
-        return $this->hasMany('App\Rental', 'building', 'id_building');
+        return $this->hasMany('App\Rental', 'id_building');
     }
 }

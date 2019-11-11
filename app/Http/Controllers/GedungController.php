@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Building;
+use App\Role;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -19,14 +21,14 @@ class GedungController extends Controller
     {
         //
         $gedung = Building::all();
-        if (Auth::user()->role == 2){
-            return view('owner.indexgedung', ['gedung'=> $gedung]);
+        if (Auth::user()->id_role == 2){
+            return view('owner.indexgedung',compact('gedung'));
         }
-        else if (Auth::user()->role == 1){
-            return view('admin.indexgedung', ['gedung'=> $gedung]);
+        else if (Auth::user()->id_role == 1){
+            return view('admin.indexgedung', compact('gedung'));
         }
-        else if (Auth::user()->role == 3){
-            return view('masyarakat.indexsewa', ['gedung'=> $gedung]);
+        else if (Auth::user()->id_role == 3){
+            return view('masyarakat.indexsewa', compact('gedung'));
         }
 
     }
@@ -39,6 +41,7 @@ class GedungController extends Controller
     public function create()
     {
         //
+
         return view('owner.creategedung');
     }
 
@@ -50,13 +53,14 @@ class GedungController extends Controller
      */
     public function store(Request $request)
     {
+        
         $request->validate([
-			'File' => 'required|file|image|mimes:jpeg,png,jpg|max:2048',
+			'building_file' => 'required|file|image|mimes:jpeg,png,jpg|max:2048',
         ]);
-            
+        // dd($request); 
         //cari inputan file dari form
-        $file = $request->file('File');
-
+        $file = $request->file('building_file');
+        // dd($file);
         // nama folder di public
         $folder = 'file';
 
@@ -66,20 +70,30 @@ class GedungController extends Controller
         // pindah file dari form ke folder laravel
         $file->move($folder, $file_foto);
 
-        Gedung::create([
-        'id_owner' => Auth::id(),
-        'NamaGedung' => $request->NamaGedung,
-        'AlamatGedung' => $request->AlamatGedung,
-        'Biaya' => $request->Biaya,
-        'Kapasitas' => $request->Kapasitas,
-        'Keterangan' => $request->Keterangan,
-        'File' => $file_foto,
-        'Kriteria' => !empty($request->Kriteria) ? $request->Kriteria : "Sedang" ,
-        'Verifikasi' => !empty($request->Verifikasi) ? $request->Verifikasi : false
+        Building::create([
+            'id_owner' => Auth::id(),
+            'name_building'=> $request->building_name,
+            'address_building'=>$request->building_address,
+            'cost'=>$request->building_cost,
+            'capacity'=>$request->building_capacity,
+            'description'=>$request->building_description,
+            'files'=>$file_foto
         ]);
+
+        // Gedung::create([
+        // 'id_owner' => Auth::id(),
+        // 'NamaGedung' => $request->NamaGedung,
+        // 'AlamatGedung' => $request->AlamatGedung,
+        // 'Biaya' => $request->Biaya,
+        // 'Kapasitas' => $request->Kapasitas,
+        // 'Keterangan' => $request->Keterangan,
+        // 'File' => $file_foto,
+        // 'Kriteria' => !empty($request->Kriteria) ? $request->Kriteria : "Sedang" ,
+        // 'Verifikasi' => !empty($request->Verifikasi) ? $request->Verifikasi : false
+        // ]);
         
         
-        return redirect('owner.indexgedung')->with('status','Data Gedung Berhasil di Tambahkan');
+        return redirect()->back()->with('status','Data Gedung Berhasil di Tambahkan');
         
     }
 
@@ -108,10 +122,15 @@ class GedungController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Gedung $gedung)
+    public function edit(Building $gedung)
     {
-        //
-        return view('owner.editgedung', ['gedung'=> $gedung]);
+        $gedung->update([
+            'verif'=> 0,
+            'submission'=>0,
+            'edit'=>0
+        ]);
+        // dd($gedung);
+        return redirect()->back();
     }
 
     /**

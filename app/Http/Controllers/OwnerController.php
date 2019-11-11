@@ -16,6 +16,11 @@ class OwnerController extends Controller
         return view('owner.index');
     }
 
+    public function penyewaan()
+    {
+        # code...
+    }
+    
     /**
      * Show the form for creating a new resource.
      *

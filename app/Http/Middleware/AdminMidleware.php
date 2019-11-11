@@ -17,7 +17,7 @@ class AdminMidleware
     public function handle($request, Closure $next)
     {
 
-        if ($request->user() && $request->user()->role !=1) {
+        if ($request->user() && $request->user()->id_role !=1) {
 
             return new Response(view('404'));
         }

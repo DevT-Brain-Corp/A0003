@@ -2,14 +2,13 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
 /**
- * @property integer $id_user
- * @property integer $role
+ * @property integer $id
+ * @property integer $id_role
  * @property string $name
  * @property string $company_name
  * @property string $user_address
@@ -27,13 +26,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     /**
-     * The primary key for the model.
-     * 
-     * @var string
-     */
-    protected $primaryKey = 'id_user';
-
-    /**
      * The "type" of the auto-incrementing ID.
      * 
      * @var string
@@ -43,14 +35,14 @@ class User extends Authenticatable
     /**
      * @var array
      */
-    protected $fillable = ['role', 'name', 'company_name', 'user_address', 'email', 'phone', 'email_verified_at', 'password', 'remember_token', 'created_at', 'updated_at'];
+    protected $fillable = ['id_role', 'name', 'company_name', 'user_address', 'email', 'phone', 'email_verified_at', 'password', 'remember_token', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function role()
     {
-        return $this->belongsTo('App\Role', 'role', 'id_role');
+        return $this->belongsTo('App\Role', 'id_role');
     }
 
     /**
@@ -58,7 +50,7 @@ class User extends Authenticatable
      */
     public function buildings()
     {
-        return $this->hasMany('App\Building', 'id_owner', 'id_user');
+        return $this->hasMany('App\Building', 'id_owner');
     }
 
     /**
@@ -66,6 +58,6 @@ class User extends Authenticatable
      */
     public function rentals()
     {
-        return $this->hasMany('App\Rental', 'loaner', 'id_user');
+        return $this->hasMany('App\Rental', 'id_loaner');
     }
 }

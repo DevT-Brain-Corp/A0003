@@ -5,9 +5,9 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property integer $id_rental
- * @property integer $building
- * @property integer $loaner
+ * @property integer $id
+ * @property integer $id_building
+ * @property integer $id_loaner
  * @property string $day_start
  * @property string $day_over
  * @property string $created_at
@@ -19,13 +19,6 @@ use Illuminate\Database\Eloquent\Model;
 class Rental extends Model
 {
     /**
-     * The primary key for the model.
-     * 
-     * @var string
-     */
-    protected $primaryKey = 'id_rental';
-
-    /**
      * The "type" of the auto-incrementing ID.
      * 
      * @var string
@@ -35,14 +28,14 @@ class Rental extends Model
     /**
      * @var array
      */
-    protected $fillable = ['building', 'loaner', 'day_start', 'day_over', 'created_at', 'updated_at'];
+    protected $fillable = ['id_building', 'id_loaner', 'day_start', 'day_over', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function building()
     {
-        return $this->belongsTo('App\Building', 'building', 'id_building');
+        return $this->belongsTo('App\Building', 'id_building');
     }
 
     /**
@@ -50,7 +43,7 @@ class Rental extends Model
      */
     public function user()
     {
-        return $this->belongsTo('App\User', 'loaner', 'id_user');
+        return $this->belongsTo('App\User', 'id_loaner');
     }
 
     /**
@@ -58,6 +51,6 @@ class Rental extends Model
      */
     public function payments()
     {
-        return $this->hasMany('App\Payment', 'rental', 'id_rental');
+        return $this->hasMany('App\Payment', 'id_rental');
     }
 }

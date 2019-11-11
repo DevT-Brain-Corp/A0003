@@ -6,7 +6,57 @@
         <div style="text-align: center; font-family: Bookman Old Style; font-size:30px">Data Gedung</div>
         <br>
         <br>
-        <a href="owner.creategedung" class="btn btn-sm btn-danger">TAMBAH DATA +</a>
+               <!-- Button trigger modal -->
+        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal">
+                TAMBAH DATA +
+        </button>
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"> Tambah Gedung </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form action="{{ route('owner.creategedung') }}" method="post" enctype="multipart/form-data" >
+            <div class="modal-body">
+                @csrf
+                <div class="form-group">
+                    <label for="building-name">Nama Gudang </label>
+                    <input type="text" name="building_name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="building-address">Alamat Gudang </label>
+                    <input type="text" name="building_address" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="building-cost">Harga Gudang </label>
+                    <input type="text" name="building_cost" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="building-name">Kapasitas Gudang </label>
+                  <input type="text" name="building_capacity" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="building-description">Deskripsi Gudang </label>
+                  <input type="text" name="building_description" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="building-file">Foto Gudang </label>
+                  <input type="file" name="building_file" class="form-control">
+              </div>
+              </form>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
         @if (session('status'))
             <div class="alert alert-success">
                 {{ session('status') }}
@@ -20,7 +70,11 @@
                         <th scope="row">No.</th>
                         <th>Nama Gedung</th>
                         <th>Alamat Gedung</th>
-                        <th>Status Gedung</th>
+                        <th>Harga</th>
+                        <th>Kapasitas</th>
+                        <th>Deskripsi</th>
+                        <th>Kriteria</th>
+                        <th>Gambar</th>
                         <th>Aksi</th>
                     </tr>
                     </thead>
@@ -28,17 +82,84 @@
                     @foreach( $gedung as $gedung )
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $gedung->NamaGedung }}</td>
-                        <td>{{ $gedung->AlamatGedung }}</td>
+                        <td>{{ $gedung->name_building }}</td>
+                        <td>{{ $gedung->address_building }}</td>
+                        <td>{{ $gedung->cost }}</td>
+                        <td>{{ $gedung->capacity }}</td>
+                        <td>{{ $gedung->description }}</td>
+                        <td>{{ $gedung->criteria }}</td>
+                        <td><img src="/file/{{ $gedung->files }}" style="width: 200px; height: 200px " alt=""></td>
                         <td>
-                            @if ($gedung->Verifikasi == 0)
-                            Belum diverifikasi
-                            @elseif($gedung->Verifikasi == 1)
-                            Terverifikasi
-                            @endif
-                        </td>
-                        <td>
-                        <a href="/owner.showgedung/{{ $gedung->id }}" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i>   Detail </a>
+                          @if ($gedung->submission==0 && $gedung->verif==1 && $gedung->edit==0)
+                              <a href="{{ route('owner.proposeedit',$gedung) }}" class="btn btn-primary">
+                                Propose For Edit
+                              </a>                          
+                          @endif
+                          @if ($gedung->submission==1)
+                            <div class="btn btn-success">
+                                Waiting Verification
+                            </div>
+                          @endif
+
+                          @if ($gedung->edit==0 && $gedung->verif==0 && $gedung->submission==0)
+                            <div class="btn btn-danger">
+                                Waiting Verification For Edit
+                            </div>
+                          @endif
+                          
+                          @if ($gedung->verif==0 && $gedung->edit==1)
+
+                          <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal-{{ $gedung->id_building }}">
+                              Edit
+                          </button>                    
+                    <!-- Modal -->
+                              <div class="modal fade" id="exampleModal-{{ $gedung->id_building }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel"> Tambah Gedung </h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <form action="{{ route('owner.creategedung')}}" method="post" enctype="multipart/form-data" >
+                                    <div class="modal-body">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label for="building-name">Nama Gudang </label>
+                                            <input type="text" name="building_name" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="building-address">Alamat Gudang </label>
+                                            <input type="text" name="building_address" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="building-cost">Harga Gudang </label>
+                                            <input type="text" name="building_cost" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                          <label for="building-name">Kapasitas Gudang </label>
+                                          <input type="text" name="building_capacity" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                          <label for="building-description">Deskripsi Gudang </label>
+                                          <input type="text" name="building_description" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                          <label for="building-file">Foto Gudang </label>
+                                          <input type="file" name="building_file" class="form-control">
+                                      </div>
+                                      </form>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>    
+                          @endif
+                        
                         </td>
                     </tr>
                     @endforeach

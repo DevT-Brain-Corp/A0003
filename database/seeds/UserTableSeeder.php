@@ -21,7 +21,7 @@ class UsersTableSeeder extends Seeder
         $admin->password = bcrypt('admin');
         $admin->user_address = 'Jl Kenangan 12 Jember';
         $admin->phone = '087709307745';
-        $admin->role = '1';
+        $admin->id_role = '1';
         $admin->save();
 
         $owner = new User();
@@ -30,7 +30,7 @@ class UsersTableSeeder extends Seeder
         $owner->company_name = 'Owner Corp.';
         $owner->user_address = 'Jl Kenangan mantan 13 Jember';
         $owner->phone = '089876987954';
-        $owner->role = '2';
+        $owner->id_role = '2';
         $owner->password = bcrypt('owner');
         $owner->save();
 
@@ -39,7 +39,7 @@ class UsersTableSeeder extends Seeder
         $masyarakat->email = 'masyarakat@gmail.com';
         $masyarakat->user_address = 'Jl Kenangan 12 Jember';
         $masyarakat->phone = '081235367890';
-        $masyarakat->role = '3';
+        $masyarakat->id_role = '3';
         $masyarakat->password = bcrypt('masyarakat');
         $masyarakat->save();
     }

@@ -15,50 +15,43 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->middleware('auth')->name('home');
 Route::get('/', function () {
     return view('auth.login');
 });
 
 Route::group(['middleware' => ['auth','owner']], function () {
+
+    Route::get('/profiles','OwnerController@index')->name('owner.profile');
+    Route::get('/buildings-rentaled', 'OwnerController@penyewaan')->name('owner.penyewaan');
+    Route::get('/buildings', 'GedungController@index')->name('owner.indexgedung');
+    Route::post('/buildings/create', 'GedungController@store')->name('owner.creategedung');
+    Route::get('/buildings/{gedung}', 'GedungController@edit')->name('owner.proposeedit');
     
-    Route::resource('owner', 'OwnerController');
-    Route::post('owner.indexgedung', 'GedungController@store');
-    Route::get('owner.indexgedung', 'GedungController@index');
-    Route::get('owner.showgedung/{gedung}', 'GedungController@show');
-    Route::get('owner.creategedung', 'GedungController@create');
+ 
 });
 
-Route::group(['middleware' => ['auth','user']], function () {
-    
+
+
+Route::group(['middleware' => ['auth','user']], function () {    
     Route::get('masyarakat.indexsewa', function () {
         return view('masyarakat.indexsewa');
     });
     Route::get('masyarakat.indexrekomendasi', function () {
         return view('masyarakat.indexrekomendasi');
-            });
+    });
             Route::get('masyarakat.indexsewa', 'GedungController@index');
             Route::get('masyarakat.showgedung/{gedung}', 'GedungController@show');
+            Route::resource('masyarakat', 'MasyarakatController');
+            Route::resource('admin', 'MasyarakatController');
 });
 
 
 Route::group(['middleware' => ['auth','admin']], function () {
-    
-    
-
-    
-    Route::resource('masyarakat', 'MasyarakatController');
-    Route::resource('admin', 'MasyarakatController');
     Route::resource('profile', 'ProfileController');
-    
-    
     Route::get('/gedung/{gedung}', 'GedungController@show');
-    
     Route::get('/gedung', 'GedungController@index')->name('admin.indexbuilding');
     Route::get('/verification', 'GedungBuildingController@index')->name('admin.buildingverification');
     Route::get('admin.showgedung/{gedung}', 'GedungController@show');
-    
-    
-    
 
 });

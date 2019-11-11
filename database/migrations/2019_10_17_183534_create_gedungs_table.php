@@ -14,7 +14,7 @@ class CreateGedungsTable extends Migration
     public function up()
     {
         Schema::create('buildings', function (Blueprint $table) {
-            $table->bigIncrements('id_building');
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('id_owner');
             $table->string('name_building');
             $table->string('address_building');
@@ -28,7 +28,7 @@ class CreateGedungsTable extends Migration
             $table->boolean('edit')->default('0');
             $table->timestamps();
 
-            $table->foreign('id_owner')->references('id_user')->on('users')->ondelete('restrict');
+            $table->foreign('id_owner')->references('id')->on('users')->ondelete('restrict');
 
 
         });

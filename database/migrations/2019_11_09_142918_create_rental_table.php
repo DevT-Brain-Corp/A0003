@@ -14,16 +14,16 @@ class CreateRentalTable extends Migration
     public function up()
     {
         Schema::create('rentals', function (Blueprint $table) {
-            $table->bigIncrements('id_rental');
-            $table->unsignedBigInteger('building');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('id_building');
             $table->dateTime('day_start');
             $table->dateTime('day_over');
-            $table->unsignedBigInteger('loaner');
+            $table->unsignedBigInteger('id_loaner');
             $table->timestamps();
 
-            $table->foreign('building')->references('id_building')->on('buildings')->ondelete('restrict');
+            $table->foreign('id_building')->references('id')->on('buildings')->ondelete('restrict');
 
-            $table->foreign('loaner')->references('id_user')->on('users')->ondelete('restrict');
+            $table->foreign('id_loaner')->references('id')->on('users')->ondelete('restrict');
         });
     }
 
