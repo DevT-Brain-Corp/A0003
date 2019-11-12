@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OwnerController extends Controller
 {
@@ -71,9 +73,20 @@ class OwnerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $user = Auth::user();
+        
+        // dd($request);
+        $user->update([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'company_name'=>$request->company_name,
+            'user_address'=>$request->user_address,
+            'phone'=>$request->phone,                
+        ]);
+
+        return redirect()->back()->with('success','Berhasil Edit Profile');
     }
 
     /**
