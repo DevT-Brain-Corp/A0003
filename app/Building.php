@@ -13,7 +13,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $capacity
  * @property string $description
  * @property string $files
- * @property string $criteria
+ * @property boolean $ac
+ * @property boolean $proyektor
+ * @property boolean $toilet
+ * @property boolean $rganti
+ * @property boolean $parking
+ * @property boolean $musholla
+ * @property boolean $podium
  * @property boolean $submission
  * @property boolean $verif
  * @property boolean $edit
@@ -34,7 +40,7 @@ class Building extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_owner', 'name_building', 'address_building', 'cost', 'capacity', 'description', 'files', 'criteria', 'submission', 'verif', 'edit', 'created_at', 'updated_at'];
+    protected $fillable = ['id_owner', 'name_building', 'address_building', 'cost', 'capacity', 'description', 'files', 'ac', 'proyektor', 'toilet', 'rganti', 'parking', 'musholla', 'podium', 'submission', 'verif', 'edit', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

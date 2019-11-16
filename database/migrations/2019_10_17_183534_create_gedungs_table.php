@@ -22,7 +22,13 @@ class CreateGedungsTable extends Migration
             $table->integer('capacity');
             $table->string('description');
             $table->string('files');
-            $table->string('criteria')->default('Sedang');
+            $table->boolean('ac');
+            $table->boolean('proyektor');
+            $table->boolean('toilet');
+            $table->boolean('rganti');
+            $table->boolean('parking');
+            $table->boolean('musholla');
+            $table->boolean('podium');
             $table->boolean('submission')->default('1');
             $table->boolean('verif')->default('0');
             $table->boolean('edit')->default('0');

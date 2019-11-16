@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->middleware('auth')->name('home');
+
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -51,9 +52,14 @@ Route::group(['middleware' => ['auth','user']], function () {
 
 Route::group(['middleware' => ['auth','admin']], function () {
     Route::resource('profile', 'ProfileController');
+    
     Route::get('/gedung/{gedung}', 'GedungController@show');
     Route::get('/gedung', 'GedungController@index')->name('admin.indexbuilding');
-    Route::get('/verification', 'GedungBuildingController@index')->name('admin.buildingverification');
-    Route::get('admin.showgedung/{gedung}', 'GedungController@show');
-
+    Route::patch('/gedung/updateverif/{gedung}', 'GedungController@adminverif')->name('admin.updateverif');
+    Route::patch('/gedung/updateeditverif/{gedung}', 'GedungController@adminverifedit')->name('admin.updateverifedit');
+    
+    Route::get('/verification', 'GedungController@verification')->name('admin.buildingverification');
+    Route::get('/verificationedit', 'GedungController@verificationedit')->name('admin.editverification');
+    
+    // Route::get('admin.showgedung/{gedung}', 'GedungController@show');
 });
