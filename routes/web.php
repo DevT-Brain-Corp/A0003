@@ -17,8 +17,14 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->middleware('auth')->name('home');
 Route::get('/', function () {
-    return view('auth.login');
+    return view('home');
 });
+Route::get('/index','PenyewaController@index');
+Route::get('gedung/{id}','PenyewaController@DetailGedung');
+//testing
+
+
+//endtesting
 
 Route::group(['middleware' => ['auth','owner']], function () {
 
@@ -35,7 +41,8 @@ Route::group(['middleware' => ['auth','owner']], function () {
 
 
 
-Route::group(['middleware' => ['auth','user']], function () {    
+Route::group(['middleware' => ['auth','user']], function () {
+
     Route::get('masyarakat.indexsewa', function () {
         return view('masyarakat.indexsewa');
     });

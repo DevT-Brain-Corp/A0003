@@ -25,4 +25,7 @@ class HomeController extends Controller
     {
         return view('dashboard');
     }
+    public function indexuser(){
+        return view('user.index');
+    }
 }

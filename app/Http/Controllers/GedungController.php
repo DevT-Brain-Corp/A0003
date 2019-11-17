@@ -28,7 +28,7 @@ class GedungController extends Controller
             return view('admin.indexgedung', compact('gedung'));
         }
         else if (Auth::user()->id_role == 3){
-            return view('masyarakat.indexsewa', compact('gedung'));
+            return view('user.index', compact('gedung'));
         }
 
     }
