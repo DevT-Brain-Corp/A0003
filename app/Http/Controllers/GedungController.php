@@ -164,15 +164,13 @@ class GedungController extends Controller
 
     public function verification()
     {
-        $gedung = Building::with('user')->where('submission', 1)->get();
-        // dd($gedung);
+        
         return view('admin.showgedung', compact('gedung'));
     }
 
     public function verificationedit()
     {
-        $gedung = Building::with('user')->where('submission', 0)->where('edit', 0)->where('verif', 0)->get();
-        // dd($gedung);
+        
         return view('admin.showgedung', compact('gedung'));
     }
 
