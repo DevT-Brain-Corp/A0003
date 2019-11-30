@@ -23,6 +23,7 @@ Route::get('/','PenyewaController@index');
 Route::get('gedung/{id}','PenyewaController@DetailGedung');
 Route::POST('/sewagedung','SewaController@store');
 Route::get('/sewa', 'PenyewaController@sewa');
+Route::get('/sewa/{id}/hapus', 'SewaController@destroy');
 
 Route::group(['middleware' => ['auth','owner']], function () {
 

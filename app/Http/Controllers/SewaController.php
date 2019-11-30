@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Rental;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -94,6 +95,7 @@ class SewaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Rental::find($id)->delete();
+        return redirect('/sewa')->with('status', 'Data Gedung Berhasil di hapus');
     }
 }
