@@ -21,8 +21,8 @@ Route::get('/home', 'HomeController@index')->middleware('auth')->name('home');
 //});
 Route::get('/','PenyewaController@index');
 Route::get('gedung/{id}','PenyewaController@DetailGedung');
-Route::get('/sewa','PenyewaController@sewa');
-Route::get('/sewagedung', 'SewaController@create');
+Route::POST('/sewagedung','SewaController@store');
+Route::get('/sewa', 'PenyewaController@sewa');
 
 Route::group(['middleware' => ['auth','owner']], function () {
 
