@@ -26,9 +26,12 @@ class PenyewaController extends Controller
     public function sewa(){
         $id = Auth::user()->id;
         $sewa = \App\Rental::all()->where('id_loaner','=',$id);
-//        $durasi = date_diff($sewa->day_start, $sewa->day_over);
+        $day = Carbon::now()->format('d');
+        $month = Carbon::now()->addMonth(1)->format('m');
+        $year = Carbon::now()->format('Y');
+        $durasi = $sewa->where($day);
         return view('user.cart')
-            ->with('sewa', $sewa);
-//            ->with('durasi', $durasi);
+            ->with('sewa', $sewa)
+            ->with('durasi', $durasi);
     }
 }

@@ -48,7 +48,8 @@
                                     </tr>
                                     <form action="{{url('/sewagedung')}}" method="POST">
                                         @csrf
-                                        <input type="text" name="id" value="{{$detailGedung->id}}" style="display: none">
+                                        <input type="text" name="id" value="{{$detailGedung->id}}"
+                                               style="display: none">
                                         <tr>
                                             <td>
                                                 <input type="date" id="start" name="day_start">
@@ -57,15 +58,28 @@
                                                 <input type="date" id="end" name="day_over">
                                             </td>
                                             <td>
-                                                <button type="submit" class="btn btn-fefault cart">
-                                                    <i class="fa fa-shopping-cart"></i>
-                                                    Sewa
-                                                </button>
+                                                @if( Auth::user()==null)
+                                                    <button type="button" class="btn btn-fefault cart" onclick="document.getElementById('#error').style.display = 'block';">
+                                                        <i class="fa fa-shopping-cart"></i>
+                                                        Sewa
+                                                    </button>
+                                                @else
+                                                    <button type="submit" class="btn btn-fefault cart">
+                                                        <i class="fa fa-shopping-cart"></i>
+                                                        Sewa
+                                                    </button>
+                                                @endif
+                                                <script>
+                                                    function f() {
+                                                        
+                                                    }
+                                                </script>
+
                                             </td>
                                         </tr>
                                     </form>
                                 </table>
-
+                                <b id="error" style="color: red; display: none;">Login atau registrasi terlebih dahulu untuk sewa</b>
                             </div><!--/product-information-->
                         </div>
                     </div><!--/product-details-->
