@@ -93,7 +93,6 @@
                                 <p>{{ $detailGedung->description }}</p>
                             </div>
                         </div>
-
                     </div>
                 </div><!--/category-tab-->
             </div>
