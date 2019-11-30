@@ -44,7 +44,12 @@ class SewaController extends Controller
             'day_over'=>$request->day_over,
             'id_loaner'=>$user,
         ]);
-        return redirect('user.cart');
+        $id = Auth::user()->id;
+        $sewa = \App\Rental::all()->where('id_loaner','=',$id);
+
+
+        return view('user.cart')
+            ->with('sewa', $sewa);
     }
 
     /**

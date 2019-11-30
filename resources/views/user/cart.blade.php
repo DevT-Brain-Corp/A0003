@@ -63,20 +63,21 @@
                                 //
                                 // // get days
                                 // var days = diff/1000/60/60/24;
-                                $("#start_date").datepicker({
+                                function showDays(){
 
-                                });
-                                $("#end_date").datepicker({
-                                    onSelect: function () {
-                                        myfunc();
-                                    }
-                                });
+                                    var start = $('#start_date').val();
+                                    var end = $('#end_date').val();
 
-                                function myfunc(){
-                                    var start= $("#start_date").datepicker("getDate");
-                                    var end= $("#end_date").datepicker("getDate");
-                                    days = (end- start) / (1000 * 60 * 60 * 24);
-                                    alert(Math.round(days));
+                                    var startDay = new Date(start);
+                                    var endDay = new Date(end);
+                                    var millisecondsPerDay = 1000 * 60 * 60 * 24;
+
+                                    var millisBetween = endDay.getTime() - startDay.getTime();
+                                    var days = millisBetween / millisecondsPerDay;
+
+                                    // Round down.
+                                    alert( Math.floor(days));
+
                                 }
                             </script>
                         </tr>
