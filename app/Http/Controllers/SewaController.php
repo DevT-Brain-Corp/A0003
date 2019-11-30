@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class SewaController extends Controller
 {
@@ -34,7 +36,15 @@ class SewaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $user = Auth::user()->id;
+        DB::table('rentals')->insert([
+            'id_building'=>$request->id,
+            'day_start'=>$request->day_start,
+            'day_over'=>$request->day_over,
+            'id_loaner'=>$user,
+        ]);
+        return view('user.cart');
     }
 
     /**

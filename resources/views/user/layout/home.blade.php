@@ -290,7 +290,7 @@
     </div>
 
 </footer><!--/Footer-->
-
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="{{ asset('user/js/jquery.js') }}"></script>
 <script src="{{ asset('user/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('user/js/jquery.scrollUp.min.js') }}"></script>

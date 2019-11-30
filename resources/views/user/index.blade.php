@@ -102,7 +102,7 @@
                         <h2 class="title text-center">Cari Gedung</h2>
 
                         <div class="col-sm-4">
-                            @foreach($gedung as $gedung)
+                            @foreach($verif as $gedung)
                                 <article data-postid="{{ $gedung->id }}">
                                     <div class="product-image-wrapper">
                                         <div class="single-products">
@@ -127,6 +127,31 @@
                                     </div>
                                 </article>
                             @endforeach
+                                @foreach($edit as $gedung)
+                                    <article data-postid="{{ $gedung->id }}">
+                                        <div class="product-image-wrapper">
+                                            <div class="single-products">
+                                                <div class="productinfo text-center">
+                                                    <img src="{{ asset('user/images/home/product1.jpg') }}" alt=""/>
+                                                    <h2>Rp.{{ $gedung->cost }} /hari</h2>
+                                                    <p>{{$gedung->name_building}}</p>
+                                                    <a href="#" class="btn btn-default add-to-cart"><i
+                                                            class="fa fa-shopping-cart"></i>Sewa</a>
+                                                </div>
+                                                <a href="/gedung/{{ $gedung->id }}">
+                                                    <div class="product-overlay">
+                                                        <div class="overlay-content">
+                                                            <h2>Rp.{{ $gedung->cost }}</h2>
+                                                            <p>{{$gedung->name_building}}</p>
+                                                            <a href="#" class="btn btn-default add-to-cart"><i
+                                                                    class="fa fa-shopping-cart"></i>Sewa</a>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </article>
+                                @endforeach
                         </div>
 
                     </div><!--features_items-->
