@@ -41,7 +41,7 @@ class SortController extends Controller
             //fasilitas
             $fx = 0;
             $fasilitas = array("$gedung->ac", "$gedung->proyektor", "$gedung->toilet", "$gedung->rganti", "$gedung->parking", "$gedung->musholla", "$gedung->podium");
-            for ($i = 0; $i > 7; $i++) {
+            for ($i = 0; $i < 7; $i++) {
                 if ($fasilitas[$i] == 0) {
                     $fx = 1 + $fx;
                 } else {
@@ -77,7 +77,7 @@ class SortController extends Controller
 
     public function cost()
     {
-        $Xij =array_sum() ;
+        $Xij =array_sum();
         $minxij = array_sum();
         $Rij = $minxij/$Xij;
     }

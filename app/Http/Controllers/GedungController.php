@@ -200,7 +200,14 @@ class GedungController extends Controller
             $request->building_cost == $gedung->cost &&
             $request->building_capacity == $gedung->capacity &&
             $request->building_description == $gedung->description &&
-            $request->building_file == null
+            $request->building_file == null &&
+            $request->ac == null &&
+            $request->proyektor == null &&
+            $request->podium == null &&
+            $request->rganti == null &&
+            $request->musholla == null &&
+            $request->parking == null &&
+            $request->toilet == null 
         ) {
             return redirect()->back()->with('stay', 'Data Gedung Tidak ada yang di ubah');
         } else {
