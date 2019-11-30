@@ -43,17 +43,42 @@
                             </td>
                             <td class="cart_quantity">
                                 <div class="cart_quantity_button">
-                                   <b>{{ $sewa->day_start }}</b>
+                                   <b id="start_date">{{ $sewa->day_start }}</b>
                                 </div>
                             </td>
                             <td class="mulai">
                                 <div class="cart_quantity_button">
-                                    <b>{{ $sewa->day_over }}</b>
+                                    <b id="end_date">{{ $sewa->day_over }}</b>
                                 </div>
                             </td>
                             <td class="cart_total">
-                                <p class="cart_total_price">aa</p>
+                                <p class="cart_total_price" id="sumprice"></p>
                             </td>
+                            <script>
+                                // var start = $('#start_date').val();
+                                // var end = $('#end_date').val();
+                                //
+                                // // end - start returns difference in milliseconds
+                                // var diff = new Date(end - start);
+                                //
+                                // // get days
+                                // var days = diff/1000/60/60/24;
+                                $("#start_date").datepicker({
+
+                                });
+                                $("#end_date").datepicker({
+                                    onSelect: function () {
+                                        myfunc();
+                                    }
+                                });
+
+                                function myfunc(){
+                                    var start= $("#start_date").datepicker("getDate");
+                                    var end= $("#end_date").datepicker("getDate");
+                                    days = (end- start) / (1000 * 60 * 60 * 24);
+                                    alert(Math.round(days));
+                                }
+                            </script>
                         </tr>
                     @endforeach
 

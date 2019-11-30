@@ -44,7 +44,7 @@ class SewaController extends Controller
             'day_over'=>$request->day_over,
             'id_loaner'=>$user,
         ]);
-        return view('user.cart');
+        return redirect('user.cart');
     }
 
     /**
