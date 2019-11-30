@@ -37,20 +37,26 @@ class SewaController extends Controller
      */
     public function store(Request $request)
     {
+        if (!empty($request->day_start) && !empty($request->day_over)) {
+            $user = Auth::user()->id;
+            DB::table('rentals')->insert([
+                'id_building' => $request->id,
+                'day_start' => $request->day_start,
+                'day_over' => $request->day_over,
+                'id_loaner' => $user,
+            ]);
+            $id = Auth::user()->id;
+            $sewa = \App\Rental::all()->where('id_loaner', '=', $id);
+            return view('user.cart')
+                ->with('sewa', $sewa);
+        }else{
+            return redirect()->back()
+                ->with('status','isi inputan data dengan lengkap');
+        }
+    }
 
-        $user = Auth::user()->id;
-        DB::table('rentals')->insert([
-            'id_building'=>$request->id,
-            'day_start'=>$request->day_start,
-            'day_over'=>$request->day_over,
-            'id_loaner'=>$user,
-        ]);
-        $id = Auth::user()->id;
-        $sewa = \App\Rental::all()->where('id_loaner','=',$id);
-
-
-        return view('user.cart')
-            ->with('sewa', $sewa);
+    public function ketersediaan($id){
+        $penyewa = \App\Rental::all()->where('','=', $id);
     }
 
     /**

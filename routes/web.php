@@ -30,7 +30,7 @@ Route::group(['middleware' => ['auth','owner']], function () {
     Route::get('/profiles','OwnerController@index')->name('owner.profile');
     Route::patch('/profiles/update','OwnerController@update')->name('owner.update');
 
-    Route::get('/buildings-rentaled', 'OwnerController@penyewaan')->name('owner.penyewaan');
+    Route::get( '/buildings-rentaled', 'OwnerController@penyewaan')->name('owner.penyewaan');
     Route::get('/buildings', 'GedungController@index')->name('owner.indexgedung');
     Route::post('/buildings/create', 'GedungController@store')->name('owner.creategedung');
     Route::get('/buildings/{gedung}', 'GedungController@edit')->name('owner.proposeedit');

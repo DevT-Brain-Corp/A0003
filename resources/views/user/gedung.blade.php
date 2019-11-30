@@ -35,7 +35,7 @@
                                 <p><b>Alamat:</b> {{ $detailGedung->address_building }}</p>
                                 <p><b>Kapasitas :</b> {{ $detailGedung->capacity }} orang</p>
                                 <p><b>Pemilik : </b>{{ $detailGedung->user->name}} </p>
-                                <a href=""><img src="images/product-details/share.png" class="share img-responsive"
+                                <a href=""><img src="/file/{{$detailGedung->file}}" class="share img-responsive"
                                                 alt=""/></a>
                                 <table>
                                     <tr>
@@ -80,6 +80,7 @@
                                     </form>
                                 </table>
                                 <b id="error" style="color: red; display: none;">Login atau registrasi terlebih dahulu untuk sewa</b>
+                                <b style="color: red;">{{ session('status') }}</b>
                             </div><!--/product-information-->
                         </div>
                     </div><!--/product-details-->
@@ -98,7 +99,8 @@
                             <div class="tab-pane fade" id="tag">
                                 <div class="col-sm-6">
                                     <h2>Cek Ketersediaan gedung: </h2>
-                                    <form action="">
+                                    <form action="{{ url('/cek-ketersediaan') }}">
+                                        @csrf
                                         <input type="date" id="start" class="date">
                                         <input type="submit" class="btn btn-primary">
                                     </form>
